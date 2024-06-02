@@ -211,7 +211,7 @@ kubectl get pods -n nagp-k8s
 
 ##### 2.4.6) The external IP address of the load balancer service will appear which can be used to access the user service from outside the cluster. Verify the IP to know the service is running properly. 
 ```sh
-curl "http://34.31.79.96:80
+curl http://34.31.79.96:80
 ```
 
 #### 2.5) Deploy [Horizontal Pod Autoscaler](k8s/user/hpa/user-service-hpa.yaml) for user service
@@ -229,12 +229,18 @@ kubectl get all -n nagp-k8s
 
 ### 2. Testing the user service endpoints
 
-#### 2.1) Save a user. Screenshot of the response can be refrenced [here](images/save_user_curl.png).
+#### 2.1) Navigate to the Kubernetes Engine through [Google Console](https://console.cloud.google.com/) and open Workloads to see all the objects are created and running properly. 
+
+#### 2.2) The postgresql database pod should be in running status with Cluster IP service exposing the database pod. Screenshot can be refrenced [here](images/gke_db_statefulsets_details.png).
+
+#### 2.3) There must be 3 user api service pods in running status with Loadbalancer service exposing the user service pod through External IP. Screenshot can be refrenced [here](images/gke_user_api_service_details.png).
+
+#### 2.4) Save a user. Screenshot of the response can be refrenced [here](images/save_user_curl.png).
 ```sh
 curl -X POST -H "Content-Type: application/json" -d '{"name": "Ashesh Saraf","email": "ashesh.sarraf@nagarro.com"}'  http://34.31.79.96:80/api/user
 ```
 
-#### 2.2) Fetch all users. Screenshot of the response can be refrenced [here](images/fetch_all_users_curl.png).
+#### 2.5) Fetch all users. Screenshot of the response can be refrenced [here](images/fetch_all_users_curl.png).
 ```sh
 curl http://34.31.79.96:80/api/user
 ```
