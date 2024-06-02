@@ -16,31 +16,31 @@
 
 <a name="desc"></a>
 ## Project Overview
-This project demonstrates the deployment of a PostgreSQL database using StatefulSets and a Node.js API service using Deployment in a GKE (Google Kubernetes Engine) cluster. 
-**Features:**
-1) The PostgreSQL database is deployed using Statefulsets.
-1.a) The database is only be accessible from inside the cluster and not outside the cluster.
-1.b) Number of database pods is 1.
-1.c) Data should be persisted in database, so if the pod goes down data should not be lost.
-1.d) All database configurations i.e., db name, user, port and password are provided through ConfigMaps and Secrets. 
-2) The User API Service is deployed using Deployment to show rolling update.
-2.a) The Rest Endpoints in user service are accessible from outside the cluster.
-2.b) The Rest Endpoints can be used to retrieve, create and delete user records from the above database. The Rest Endpoints can be used to increase, decrease and stop load on user api service.
-2.c) A headless cluster IP service is used to connect to the database with host as **<database-service>.<namespace>.svc.cluster.local**
-2.d) Number of user api service pods are 3.
-2.e) All configurations i.e., db host, db user, db port, db password and user service port are provided through ConfigMaps and Secrets.
-3) A Horizontal Pod Autoscaler (HPA) is configured on User API Service which will automatically increase/decrease the number of running pods depending on the CPU and Memory Utilization.
-4) General Rules:
-4.a) Node js is used to build the User API Service. 
-4.b) K8s cluster is deployed on Google Cloud by enabling GKE Engine. 
-4.c) Direct Pod IPs are not used for communication. Headless and Loadbalancer k8s services are used for communication.
-4.d) All configuration values are passed using K8s ConfigMaps.
-4.e) All secret info like password etc are passed using K8s Secrets
+This project demonstrates the deployment of a PostgreSQL database using StatefulSets and a Node.js API service using Deployment in a GKE (Google Kubernetes Engine) cluster.<br>
+**Features:**<br>
+1) The PostgreSQL database is deployed using Statefulsets.<br>
+1.a) The database is only be accessible from inside the cluster and not outside the cluster.<br>
+1.b) Number of database pods is 1.<br>
+1.c) Data should be persisted in database, so if the pod goes down data should not be lost.<br>
+1.d) All database configurations i.e., db name, user, port and password are provided through ConfigMaps and Secrets. <br>
+2) The User API Service is deployed using Deployment to show rolling update.<br>
+2.a) The Rest Endpoints in user service are accessible from outside the cluster.<br>
+2.b) The Rest Endpoints can be used to retrieve, create and delete user records from the above database. The Rest Endpoints can be used to increase, decrease and stop load on user api service.<br>
+2.c) A headless cluster IP service is used to connect to the database with host as **<database-service>.<namespace>.svc.cluster.local**. <br>
+2.d) Number of user api service pods are 3. <br>
+2.e) All configurations i.e., db host, db user, db port, db password and user service port are provided through ConfigMaps and Secrets. <br>
+3) A Horizontal Pod Autoscaler (HPA) is configured on User API Service which will automatically increase/decrease the number of running pods depending on the CPU and Memory Utilization. <br>
+4) General Rules:<br>
+4.a) Node js is used to build the User API Service. <br>
+4.b) K8s cluster is deployed on Google Cloud by enabling GKE Engine. <br>
+4.c) Direct Pod IPs are not used for communication. Headless and Loadbalancer k8s services are used for communication.<br>
+4.d) All configuration values are passed using K8s ConfigMaps.<br>
+4.e) All secret info like password etc are passed using K8s Secrets. <br>
 
 <a name="code_link"></a>
 ## All relevant project links:
 
-1. Click [Here]() to access the Code Repository on Gitlab.
+1. Click [Here](https://github.com/codeashesh/nagp-k8s) to access the Code Repository on Gitlab.
 
 2. User API Service Docker Image is pushed on Google Artifact Registry. Use these commands with the Docker client to pull the image. To use these commands, your Docker client must be configured to authenticate with gcr.io. If this is the first time that you are pulling an image from gcr.io with your Docker client, run the following command on the machine where Docker is installed.
 ```sh
@@ -299,6 +299,7 @@ curl http://34.31.79.96:80/api/user
 
 <a name="architecture"></a>
 ## Project Architecture:
+<pre>
 +------------------------------------+
 |   GKE Cluster: nagp-k8s-cluster    |
 |  +-----------------------------+   |
@@ -316,7 +317,8 @@ curl http://34.31.79.96:80/api/user
 |  |  |  +----------++------+ |  |   |
 |  |  +-----------------------+  |   |
 |  |  +-----------------------+  |   |
-|  |  |Deployment:user-service|  |   |
+|  |  |      Deployment:      |  |   |
+|  |  |     user-service      |  |   |
 |  |  |  +------------------+ |  |   |
 |  |  |  | Pod:user-service | |  |   |
 |  |  |  | Pod:user-service | |  |   |
@@ -337,3 +339,4 @@ curl http://34.31.79.96:80/api/user
 |  |  +-----------------------+  |   |
 |  +-----------------------------+   |
 +------------------------------------+
+</pre>
