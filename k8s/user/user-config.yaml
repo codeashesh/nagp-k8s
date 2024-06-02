@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-config
+  namespace: nagp-k8s
+data:
+  DB_HOST: user-db.nagp-k8s.svc.cluster.local
+  DB_NAME: USER_K8S
+  DB_USER: admin-user
+  DB_PORT: "5432"
+  USER_PORT: "8080"
