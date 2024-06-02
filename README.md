@@ -26,7 +26,7 @@ This project demonstrates the deployment of a PostgreSQL database using Stateful
 2) The User API Service is deployed using Deployment to show rolling update.<br>
 2.a) The Rest Endpoints in user service are accessible from outside the cluster.<br>
 2.b) The Rest Endpoints can be used to retrieve, create and delete user records from the above database. The Rest Endpoints can be used to increase, decrease and stop load on user api service.<br>
-2.c) A headless cluster IP service is used to connect to the database with host as **<database-service>.<namespace>.svc.cluster.local**. <br>
+2.c) A headless cluster IP service is used to connect to the database with host as **{database-service}.{namespace}.svc.cluster.local**. <br>
 2.d) Number of user api service pods are 3. <br>
 2.e) All configurations i.e., db host, db user, db port, db password and user service port are provided through ConfigMaps and Secrets. <br>
 3) A Horizontal Pod Autoscaler (HPA) is configured on User API Service which will automatically increase/decrease the number of running pods depending on the CPU and Memory Utilization. <br>
